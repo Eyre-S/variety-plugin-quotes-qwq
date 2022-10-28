@@ -9,6 +9,8 @@ logger = logging.getLogger("variety")
 
 class QwqSource(IQuoteSource):
 	
+	file_log:bool = False
+	
 	def __init__(self):
 		super(IQuoteSource, self).__init__()
 		self.quotes = []
@@ -149,7 +151,8 @@ class QwqSource(IQuoteSource):
 		return os.path.join(self.get_config_folder(), "..", "quotes-qwq")
 	
 	def echo_log (self, msg: str):
-		with open(os.path.join(self.qwq_configs(), "quotes_qwq.log"), "a", encoding="utf-8", errors="ignore") as file:
-			file.write(msg+"\n")
+		if self.file_log:
+			with open(os.path.join(self.qwq_configs(), "quotes_qwq.log"), "a", encoding="utf-8", errors="ignore") as file:
+				file.write(msg+"\n")
 		return
 
